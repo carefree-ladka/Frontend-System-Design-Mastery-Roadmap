@@ -4,6 +4,8 @@
 
 **[RADIO Framework - Interview Approach](#radio-framework---interview-approach)**
 
+**[Machine Coding Round - Common Problems](#machine-coding-round---common-problems)**
+
 1. [Networking](#1-networking)
 2. [Communication](#2-communication)
 3. [Security](#3-security)
@@ -303,6 +305,405 @@ const FeedComponent = () => {
 - Draw diagrams for architecture
 - Choose optimization topics based on product type and your strengths
 - Show depth over breadth in the deep dive section
+
+---
+
+## Machine Coding Round - Common Problems
+
+**Practical coding exercises frequently asked in frontend interviews.**
+
+### 1. UI Components & Widgets ⭐
+
+#### Most Frequently Asked
+- **Autocomplete/Typeahead Search** ⭐⭐⭐
+  - Debounced input, API integration, keyboard navigation
+- **Infinite Scroll** ⭐⭐⭐
+  - Intersection Observer, pagination, loading states
+- **Tabs Implementation** ⭐⭐⭐
+  - Active state management, accessibility
+- **Modal/Dialog** ⭐⭐⭐
+  - Portal rendering, focus trap, ESC to close
+- **Carousel/Image Slider** ⭐⭐
+  - Auto-play, indicators, touch gestures
+- **Star Rating Component** ⭐⭐
+  - Interactive, half-star support, read-only mode
+- **Accordion** ⭐⭐
+  - Single/multiple expand, smooth transitions
+
+#### Advanced Components
+- **Multi-select Dropdown with Search** ⭐⭐
+- **Virtual List/Table** ⭐⭐ (performance critical)
+- **Drag and Drop Interface** ⭐⭐
+- **File Upload with Preview** ⭐
+- **Date Picker** ⭐
+- **Progress Bar** ⭐
+- **Pagination** ⭐
+- **Tooltips** ⭐
+
+---
+
+### 2. Game-like Applications 🎮
+
+#### Most Frequently Asked
+- **Tic Tac Toe** ⭐⭐⭐
+  - Win detection, reset, AI player (bonus)
+- **Memory Card Game** ⭐⭐
+  - Card matching, score tracking, timer
+- **2048 Game** ⭐⭐
+  - Grid movement, merge logic, score calculation
+- **Snake Game** ⭐
+  - Movement, collision detection, score
+
+#### Other Games
+- **Minesweeper** ⭐
+- **Connect Four** ⭐
+- **Whack-a-Mole** ⭐
+
+---
+
+### 3. Application Features 📱
+
+#### Data Management (Very Common)
+- **Todo List with CRUD** ⭐⭐⭐
+  - Add, edit, delete, mark complete, filter
+- **Shopping Cart** ⭐⭐⭐
+  - Add/remove items, quantity management, total calculation
+- **Nested Comments (Reddit-style)** ⭐⭐
+  - Recursive rendering, reply functionality
+- **Form Validation** ⭐⭐
+  - Real-time validation, error messages, submit handling
+
+#### State Management
+- **Undo/Redo Functionality** ⭐⭐
+  - Command pattern, history stack
+- **Multi-step Form Wizard** ⭐⭐
+  - Step navigation, validation, data persistence
+- **Theme Switcher (Dark Mode)** ⭐
+  - Local storage, CSS variables
+
+---
+
+### 4. API Integration & Data Handling 🌐
+
+#### Most Frequently Asked
+- **Debounced Search** ⭐⭐⭐
+  - API calls with debounce, loading states
+- **Data Grid with Sorting/Filtering** ⭐⭐
+  - Client-side or server-side operations
+- **Paginated List** ⭐⭐
+  - API integration, loading more items
+- **Caching Implementation** ⭐⭐
+  - In-memory cache, cache invalidation
+
+#### Error Handling
+- **Retry Mechanism** ⭐⭐
+- **Loading States & Spinners** ⭐⭐
+- **Error Boundaries** ⭐
+
+---
+
+### 5. Performance Optimization ⚡
+
+#### Critical Techniques
+- **Debounce/Throttle Implementation** ⭐⭐⭐
+  - Custom utilities from scratch
+- **Image Lazy Loading** ⭐⭐
+  - Intersection Observer API
+- **Virtual Scrolling** ⭐⭐
+  - Rendering visible items only
+- **Memoization** ⭐
+  - Custom memo function
+
+---
+
+### 6. Layout & Navigation 🗺️
+
+#### Common Tasks
+- **Responsive Navigation Bar** ⭐⭐
+  - Mobile hamburger menu, dropdown
+- **Sticky Header** ⭐
+  - Position on scroll
+- **Grid/Masonry Layout** ⭐
+  - CSS Grid or Flexbox implementation
+
+---
+
+### 7. Design Patterns & Advanced Concepts 🎯
+
+#### Frequently Tested
+- **Custom Hooks** ⭐⭐⭐ (React)
+  - useDebounce, useLocalStorage, useAsync
+- **Higher Order Components** ⭐⭐ (React)
+  - withAuth, withLoading
+- **Observer Pattern** ⭐⭐
+  - Event emitter, pub-sub
+- **Compound Components** ⭐
+  - Context-based API
+
+---
+
+### 8. Accessibility Features ♿
+
+#### Important A11y Tasks
+- **Keyboard Navigation** ⭐⭐
+  - Tab, Arrow keys, Enter, ESC
+- **Focus Management** ⭐⭐
+  - Focus trap in modals, focus restoration
+- **ARIA Attributes** ⭐
+  - role, aria-label, aria-describedby
+- **Skip Links** ⭐
+
+---
+
+## Implementation Approach
+
+### Step 1: Clarify Requirements (5 min)
+```
+✓ What features are required vs nice-to-have?
+✓ What browsers need support?
+✓ Vanilla JS or framework allowed?
+✓ External libraries allowed?
+✓ Performance requirements?
+✓ Accessibility requirements?
+```
+
+### Step 2: Plan Structure (5 min)
+```javascript
+// Component Structure
+- State management approach
+- Event handlers needed
+- Helper functions
+- Data structure
+
+// Example: Todo List
+State: { todos: [], filter: 'all' }
+Actions: addTodo, deleteTodo, toggleTodo, filterTodos
+UI: Input, TodoList, TodoItem, FilterButtons
+```
+
+### Step 3: Core Implementation (30-40 min)
+```
+1. Basic HTML structure
+2. Core functionality (CRUD operations)
+3. State management
+4. Event handling
+5. Basic styling
+```
+
+### Step 4: Enhancements (10-15 min)
+```
+✓ Error handling
+✓ Loading states
+✓ Empty states
+✓ Keyboard accessibility
+✓ Responsive design
+✓ Edge cases
+```
+
+---
+
+## Code Examples
+
+### Example 1: Debounce Function ⭐⭐⭐
+```javascript
+function debounce(func, delay) {
+  let timeoutId;
+  
+  return function(...args) {
+    clearTimeout(timeoutId);
+    
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+
+// Usage
+const handleSearch = debounce((query) => {
+  fetch(`/api/search?q=${query}`)
+    .then(res => res.json())
+    .then(data => updateUI(data));
+}, 300);
+```
+
+### Example 2: Infinite Scroll ⭐⭐⭐
+```javascript
+function InfiniteScroll() {
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const observerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading) {
+          loadMore();
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [loading]);
+
+  const loadMore = async () => {
+    setLoading(true);
+    const newItems = await fetchItems(page);
+    setItems(prev => [...prev, ...newItems]);
+    setPage(prev => prev + 1);
+    setLoading(false);
+  };
+
+  return (
+    <div>
+      {items.map(item => <Item key={item.id} {...item} />)}
+      <div ref={observerRef}>
+        {loading && <Spinner />}
+      </div>
+    </div>
+  );
+}
+```
+
+### Example 3: Custom Modal ⭐⭐⭐
+```javascript
+function Modal({ isOpen, onClose, children }) {
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Focus trap
+    const focusableElements = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    // ESC to close
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    firstElement?.focus();
+
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return ReactDOM.createPortal(
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        <button className="close-btn" onClick={onClose} aria-label="Close">
+          ×
+        </button>
+        {children}
+      </div>
+    </div>,
+    document.body
+  );
+}
+```
+
+### Example 4: Tic Tac Toe ⭐⭐⭐
+```javascript
+function TicTacToe() {
+  const [board, setBoard] = useState(Array(9).fill(null));
+  const [isXNext, setIsXNext] = useState(true);
+  const winner = calculateWinner(board);
+
+  const handleClick = (index) => {
+    if (board[index] || winner) return;
+    
+    const newBoard = [...board];
+    newBoard[index] = isXNext ? 'X' : 'O';
+    setBoard(newBoard);
+    setIsXNext(!isXNext);
+  };
+
+  const calculateWinner = (squares) => {
+    const lines = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], // cols
+      [0, 4, 8], [2, 4, 6] // diagonals
+    ];
+
+    for (let [a, b, c] of lines) {
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        return squares[a];
+      }
+    }
+    return null;
+  };
+
+  return (
+    <div>
+      <div className="status">
+        {winner ? `Winner: ${winner}` : `Next: ${isXNext ? 'X' : 'O'}`}
+      </div>
+      <div className="board">
+        {board.map((cell, i) => (
+          <button key={i} onClick={() => handleClick(i)}>
+            {cell}
+          </button>
+        ))}
+      </div>
+      <button onClick={() => setBoard(Array(9).fill(null))}>Reset</button>
+    </div>
+  );
+}
+```
+
+---
+
+## Common Pitfalls to Avoid ⚠️
+
+1. **Over-engineering**
+   - Start simple, add complexity only if needed
+   - Don't prematurely optimize
+
+2. **Skipping Error Handling**
+   - Always handle API errors
+   - Validate user input
+   - Show meaningful error messages
+
+3. **Ignoring Accessibility**
+   - Add keyboard navigation
+   - Use semantic HTML
+   - Include ARIA labels
+
+4. **Poor Code Organization**
+   - Break into smaller functions
+   - Separate concerns
+   - Use meaningful variable names
+
+5. **Not Testing Edge Cases**
+   - Empty states
+   - Loading states
+   - Error states
+   - Boundary values
+
+---
+
+## Quick Reference: Problem Categories
+
+| Category | Difficulty | Time | Key Skills |
+|----------|-----------|------|------------|
+| Debounce/Throttle | ⭐⭐⭐ | 15-20 min | Closures, Timers |
+| Autocomplete | ⭐⭐⭐ | 30-40 min | API, Debounce, Keyboard |
+| Infinite Scroll | ⭐⭐⭐ | 30-40 min | Observer API, Performance |
+| Todo List | ⭐⭐⭐ | 30-40 min | CRUD, State Management |
+| Modal | ⭐⭐ | 20-30 min | Portal, Focus Trap |
+| Tic Tac Toe | ⭐⭐ | 30-40 min | Game Logic, State |
+| Tabs | ⭐⭐ | 15-25 min | State, Accessibility |
+| Carousel | ⭐⭐ | 25-35 min | Timers, Transitions |
+| Drag & Drop | ⭐⭐ | 30-45 min | Event Handling |
+| Virtual List | ⭐⭐ | 35-45 min | Performance, Math |
 
 ---
 
