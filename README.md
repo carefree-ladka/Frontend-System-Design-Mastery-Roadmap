@@ -2,6 +2,8 @@
 
 ## Table of Contents
 
+**[RADIO Framework - Interview Approach](#radio-framework---interview-approach)**
+
 1. [Networking](#1-networking)
 2. [Communication](#2-communication)
 3. [Security](#3-security)
@@ -19,6 +21,288 @@
 15. [Soft Skills & Career](#15-soft-skills--career)
 16. [Appendix: Resources](#appendix-resources)
 17. [Study Approach](#study-approach)
+
+---
+
+## RADIO Framework - Interview Approach
+
+**A structured approach to ace frontend system design interviews.**
+
+### What is RADIO?
+
+```mermaid
+graph LR
+    R[Requirements<br/>Exploration<br/>~15%] --> A[Architecture /<br/>High-Level Design<br/>~20%]
+    A --> D[Data Model /<br/>Core Entities<br/>~10%]
+    D --> I[Interface<br/>Definition API<br/>~15%]
+    I --> O[Optimizations &<br/>Deep Dive<br/>~40%]
+```
+
+---
+
+### R - Requirements Exploration (~15%)
+
+**Objective:** Understand the problem and determine scope through clarifying questions.
+
+**Key Questions to Ask:**
+- What are the main use cases and core features?
+- What are the functional vs non-functional requirements?
+- Which features are core vs nice-to-have?
+- What devices/platforms need support (desktop/mobile/tablet)?
+- Is offline support necessary?
+- Who are the primary users?
+- Any specific performance requirements?
+
+**Example: Design Facebook News Feed**
+- Focus on: News feed display, creating posts, pagination
+- Functional: View feed, create posts, like/react
+- Non-functional: Fast loading, smooth scrolling, real-time updates
+- Core features: Text posts, images, reactions
+- Nice-to-have: Videos, polls, location check-ins
+
+---
+
+### A - Architecture / High-Level Design (~20%)
+
+**Objective:** Identify key components and their relationships.
+
+**Common Components:**
+- **Server** - Backend APIs (black box)
+- **Controller** - Handles user interactions and data flow
+- **Model/Store** - Client-side data storage
+- **View** - UI components
+
+**Example Architecture: Facebook News Feed**
+
+```mermaid
+graph TB
+    Server[Server<br/>Feed API, Post Creation API]
+    Controller[Controller<br/>Data Flow Management]
+    Store[Client Store<br/>User Data, Feed Cache]
+    FeedUI[Feed UI<br/>Post List & Composer]
+    Post[Feed Post Component<br/>Content, Reactions, Comments]
+    Composer[Post Composer<br/>Text Input, Media Upload]
+    
+    Server <-->|HTTP/REST| Controller
+    Controller <-->|Read/Write| Store
+    Controller --> FeedUI
+    FeedUI --> Post
+    FeedUI --> Composer
+    Store -.->|Data| Post
+```
+
+**Component Responsibilities:**
+- **Server**: Provides feed data, creates new posts
+- **Controller**: Manages API calls, data transformation
+- **Client Store**: Caches user data, feed posts
+- **Feed UI**: Renders post list and composer
+- **Feed Post**: Displays individual post with interactions
+- **Post Composer**: Interface for creating new posts
+
+---
+
+### D - Data Model / Core Entities (~10%)
+
+**Objective:** Define data entities, fields, and ownership.
+
+**Data Types:**
+- **Server-originated**: From database (user profiles, posts)
+- **Client-only**: Local state (form inputs, UI state)
+
+**Example Data Model: News Feed**
+
+| Source | Entity | Component | Fields |
+|--------|--------|-----------|--------|
+| Server | `Post` | Feed Post | `id`, `created_time`, `content`, `image`, `author` (User), `reactions` |
+| Server | `Feed` | Feed UI | `posts[]`, `pagination` (cursor, hasNext) |
+| Server | `User` | Client Store | `id`, `name`, `profile_photo_url` |
+| Client | `NewPost` | Composer | `message`, `image`, `isDraft` |
+| Client | UI State | Feed UI | `isLoading`, `error`, `selectedTab` |
+
+---
+
+### I - Interface Definition (API) (~15%)
+
+**Objective:** Define APIs between components - their functionality, parameters, and responses.
+
+#### Server-Client API Example
+
+**Fetch Feed Posts**
+```javascript
+// API Specification
+GET /feed
+
+// Parameters
+{
+  "size": 10,
+  "cursor": "dXNlcjpXMDdRQ1JQQTQ"
+}
+
+// Response
+{
+  "pagination": {
+    "size": 10,
+    "next_cursor": "dXNlcjpVMEc5V0ZYTlo",
+    "has_next": true
+  },
+  "results": [
+    {
+      "id": "123",
+      "author": {
+        "id": "456",
+        "name": "John Doe",
+        "profile_photo": "https://example.com/photo.jpg"
+      },
+      "content": "Hello world!",
+      "image": "https://example.com/post.jpg",
+      "reactions": {
+        "likes": 20,
+        "loves": 5
+      },
+      "created_time": 1620639583
+    }
+  ]
+}
+```
+
+**Create New Post**
+```javascript
+POST /posts
+
+// Parameters
+{
+  "content": "My new post",
+  "image": "base64_encoded_image",
+  "visibility": "public"
+}
+
+// Response
+{
+  "id": "789",
+  "status": "published",
+  "created_time": 1620639999
+}
+```
+
+#### Client-Client API Example
+
+```javascript
+// Controller to Store
+function addPostToFeed(post: Post): void
+
+// Controller to View
+function updateFeedUI(posts: Post[], isLoading: boolean): void
+
+// Composer to Controller
+function submitNewPost(content: string, image?: File): Promise<Post>
+```
+
+---
+
+### O - Optimizations & Deep Dive (~40%)
+
+**Objective:** Discuss optimizations and dive deep into critical areas.
+
+**Focus Areas** (choose based on product needs):
+
+#### 1. Performance
+- **Initial Load**: Code splitting, lazy loading, SSR
+- **Runtime**: Virtual scrolling for long feeds
+- **Images**: Lazy loading, responsive images, WebP format
+- **Caching**: Service workers, HTTP caching
+
+#### 2. User Experience
+- **Optimistic Updates**: Show post immediately, rollback on error
+- **Skeleton Screens**: Show loading placeholders
+- **Infinite Scroll**: Intersection Observer for pagination
+- **Pull-to-Refresh**: Mobile gesture support
+
+#### 3. Network
+- **Request Batching**: Combine multiple API calls
+- **Debouncing**: Limit API calls for search/autocomplete
+- **Retry Logic**: Handle network failures gracefully
+- **WebSockets**: Real-time updates for new posts
+
+#### 4. Accessibility
+- **Keyboard Navigation**: Tab through posts, shortcuts
+- **Screen Readers**: ARIA labels, semantic HTML
+- **Focus Management**: Maintain focus after interactions
+- **Color Contrast**: WCAG AA/AAA compliance
+
+#### 5. Scalability
+- **Pagination Strategy**: Cursor-based for infinite scroll
+- **State Management**: Redux/Zustand for complex apps
+- **Component Reusability**: Atomic design principles
+
+#### 6. Security
+- **XSS Prevention**: Sanitize user input
+- **CSRF Protection**: Token-based validation
+- **Content Security Policy**: Restrict resource loading
+
+---
+
+### Example Deep Dive: Infinite Scroll Implementation
+
+```javascript
+// Using Intersection Observer for efficient infinite scroll
+const FeedComponent = () => {
+  const [posts, setPosts] = useState([]);
+  const [cursor, setCursor] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const observerTarget = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isLoading && cursor) {
+          loadMorePosts();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => observer.disconnect();
+  }, [cursor, isLoading]);
+
+  const loadMorePosts = async () => {
+    setIsLoading(true);
+    const data = await fetchFeed({ cursor, size: 10 });
+    setPosts(prev => [...prev, ...data.results]);
+    setCursor(data.pagination.next_cursor);
+    setIsLoading(false);
+  };
+
+  return (
+    <div>
+      {posts.map(post => <PostCard key={post.id} post={post} />)}
+      <div ref={observerTarget} />
+      {isLoading && <Skeleton />}
+    </div>
+  );
+};
+```
+
+---
+
+### RADIO Framework Summary
+
+| Step | Duration | Key Focus |
+|------|----------|-----------|
+| **R**equirements | <15% | Clarify scope, features, constraints |
+| **A**rchitecture | ~20% | Component diagram, relationships |
+| **D**ata Model | ~10% | Entities, fields, data flow |
+| **I**nterface | ~15% | APIs, parameters, responses |
+| **O**ptimizations | ~40% | Performance, UX, scalability |
+
+**Pro Tips:**
+- Write down requirements for reference
+- Draw diagrams for architecture
+- Choose optimization topics based on product type and your strengths
+- Show depth over breadth in the deep dive section
 
 ---
 
